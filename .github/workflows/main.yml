@@ -31,5 +31,5 @@ jobs:
         run: dotnet pack --output ./nupkg
 
       - name: Publish Package
-        run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/ibnehussain/index.json" --apik-key ${{secrets.GITHUB_TOKEN}}
+        run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/ibnehussain/index.json" --api-key ${{secrets.GITHUB_TOKEN}}
       
