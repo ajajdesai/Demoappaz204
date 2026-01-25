@@ -5,16 +5,26 @@ on:
 - workflow_dispatch #manual
 
 jobs: 
-  test:
+  Build:
     runs-on: ubuntu-latest #runner
 
-    strategy:
-      matrix:
-        dotnet-version: [4.x,6.x, 7.x, 8.x]
-      fail-fast: false  # Continue all matrix jobs even if one fails
-
     steps:
-      - name: Hello World Command
-        run: echo "Hello World!" > demo.txt
-        # use run to execute shell commands directly on the runner
-      - run: cat demo.txt
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: setup SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '7.x'
+      
+      - name: Restore
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet build
+
+      - name: Pack
+        run: dotnet pack --output ./nupkg
+
+      - name: Publish Package
+        run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/ibnehussain/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
