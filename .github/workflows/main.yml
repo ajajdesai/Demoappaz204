@@ -6,6 +6,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Hello World Command
       - run: echo "Hello World!" > demo.txt
 
       - run: cat demo.txt
