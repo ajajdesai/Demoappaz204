@@ -3,8 +3,8 @@ name: CI pipeline
 on: push
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
       - name: Check out Code
@@ -21,3 +21,13 @@ jobs:
       - name: Build
         run: dotnet build
 
+        
+      - name: Pack- Create a NuGet Package
+        run: dotnet pack --output ./nupkg
+
+      - name: Collect artifact
+        uses: actions/upload-artifact@v6.0.0
+        with:
+            name: nuget-package
+            path: ./nupkg
+      
