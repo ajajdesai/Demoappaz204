@@ -1,0 +1,19 @@
+name: my first workflow
+description: A simple workflow to build and deploy a .NET application to Azure Web App
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Set up .net # setting up .net
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0
+      
+    - name: Restore Dependencies
+      run: dotnet restore
+      shell: bash
+
+    - name: Restore Dependencies
+      run: dotnet build
+      shell: bash
